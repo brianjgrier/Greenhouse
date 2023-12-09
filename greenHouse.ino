@@ -12,6 +12,15 @@
 #include "Adafruit_TSL2591.h"
 #include <ArduinoJson.h>
 
+//
+//  The secrets file has two entries
+//      #define WiFi_SSID xxxx
+//      #define WiFi_Passwd xxxx
+//
+// You will need to provide this file
+//
+#include "secrets.h"
+
 Adafruit_BMP3XX bmp ;
 Adafruit_TSL2591 tsl = Adafruit_TSL2591(2591) ; // pass in a number for the sensor identifier (for your use later)
 
@@ -22,8 +31,8 @@ struct tslDataStruct tslData ;
 #include <utility/wifi_drv.h>
 #include <ArduinoMqttClient.h>
 
-char ssid[] = "";              //  your network SSID (name) between the " "
-char pass[] = "";      // your network password between the " "
+char ssid[] = WiFi_SSID ;              //  your network SSID (name) between the " "
+char pass[] = WiFi_Passwd;      // your network password between the " "
 int keyIndex = 0;                  // your network key Index number (needed only for WEP)
 int status = WL_IDLE_STATUS;       //connection status
 
@@ -137,7 +146,7 @@ struct {
   int       moisture[3] ;
   int       valveState[2] ;
   int       mmhg ;
-  int       ir ;
+  uint16_t  ir ;
   uint16_t  lux ;
   float     batVDC ;
   float     sysAmps;
